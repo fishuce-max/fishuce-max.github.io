@@ -562,6 +562,45 @@
             border: none;
         }
 
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(0,0,0,0.4);
+            border: none;
+            padding: 0.5rem 1rem;
+            z-index: 10;
+            display: none;
+        }
+
+        .lightbox-nav.visible {
+            display: block;
+        }
+
+        .lightbox-prev {
+            left: -60px;
+        }
+
+        .lightbox-next {
+            right: -60px;
+        }
+
+        .lightbox-counter {
+            text-align: center;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .lightbox-counter.visible {
+            display: block;
+        }
+
         /* CV Section */
         #cv {
             padding: 5rem 3rem;
@@ -1135,7 +1174,7 @@
 
             <div class="exhibition-card">
                 <div class="exhibition-poster">
-                    <div class="poster-placeholder">Beneath, Upon, Beyond 2025</div>
+                    <img src="beneath-poster.jpg" onclick="openGallery(['beneath-ws1.jpg','beneath-ws2.jpg','beneath-ws3.jpg','beneath-ws4.jpg','beneath-ws5.jpg','beneath-ws6.jpg'], 0)" style="cursor:pointer;" alt="Beneath, Upon, Beyond" onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'>Beneath, Upon, Beyond 2025</div>'">
                 </div>
                 <div class="exhibition-year">2025</div>
                 <div class="exhibition-name">Beneath, Upon, Beyond</div>
@@ -1198,7 +1237,7 @@
 
             <div class="exhibition-card">
                 <div class="exhibition-poster">
-                    <div class="poster-placeholder">Beneath, Upon, Beyond 2025</div>
+                    <img src="beneath-poster.jpg" onclick="openGallery(['beneath-ws1.jpg','beneath-ws2.jpg','beneath-ws3.jpg','beneath-ws4.jpg','beneath-ws5.jpg','beneath-ws6.jpg'], 0)" style="cursor:pointer;" alt="Beneath, Upon, Beyond" onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'>Beneath, Upon, Beyond 2025</div>'">
                 </div>
                 <div class="exhibition-year">2025</div>
                 <div class="exhibition-name">Beneath, Upon, Beyond</div>
@@ -1252,7 +1291,10 @@
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lbPrev" onclick="event.stopPropagation(); galleryPrev()">&larr;</button>
             <img class="lightbox-image" id="lightboxImage" onclick="toggleLightboxImage()" alt="">
+            <button class="lightbox-nav lightbox-next" id="lbNext" onclick="event.stopPropagation(); galleryNext()">&rarr;</button>
+            <div class="lightbox-counter" id="lbCounter"></div>
         </div>
     </div>
 
@@ -1702,15 +1744,65 @@
         // Lightbox Functions
         let currentLightboxImages = { main: '', alt: '' };
         let isAltImage = false;
+        let galleryImages = [];
+        let galleryIndex = 0;
+        let isGalleryMode = false;
 
         function openLightbox(mainImage, altImage) {
+            isGalleryMode = false;
             currentLightboxImages = { main: mainImage, alt: altImage };
             isAltImage = false;
             const lightbox = document.getElementById('lightbox');
             const img = document.getElementById('lightboxImage');
             img.src = mainImage;
             img.alt = 'Exhibition image';
+            document.getElementById('lbPrev').classList.remove('visible');
+            document.getElementById('lbNext').classList.remove('visible');
+            document.getElementById('lbCounter').classList.remove('visible');
             lightbox.classList.add('active');
+        }
+
+        function openGallery(images, startIndex) {
+            isGalleryMode = true;
+            galleryImages = images;
+            galleryIndex = startIndex || 0;
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImage');
+            img.src = galleryImages[galleryIndex];
+            img.alt = 'Exhibition image';
+            document.getElementById('lbPrev').classList.add('visible');
+            document.getElementById('lbNext').classList.add('visible');
+            document.getElementById('lbCounter').classList.add('visible');
+            updateGalleryCounter();
+            lightbox.classList.add('active');
+        }
+
+        function galleryPrev() {
+            if (!isGalleryMode) return;
+            galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+            const img = document.getElementById('lightboxImage');
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = galleryImages[galleryIndex];
+                img.style.opacity = 1;
+            }, 200);
+            updateGalleryCounter();
+        }
+
+        function galleryNext() {
+            if (!isGalleryMode) return;
+            galleryIndex = (galleryIndex + 1) % galleryImages.length;
+            const img = document.getElementById('lightboxImage');
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = galleryImages[galleryIndex];
+                img.style.opacity = 1;
+            }, 200);
+            updateGalleryCounter();
+        }
+
+        function updateGalleryCounter() {
+            document.getElementById('lbCounter').textContent = (galleryIndex + 1) + ' / ' + galleryImages.length;
         }
 
         function closeLightbox() {
@@ -1718,6 +1810,10 @@
         }
 
         function toggleLightboxImage() {
+            if (isGalleryMode) {
+                galleryNext();
+                return;
+            }
             const img = document.getElementById('lightboxImage');
             isAltImage = !isAltImage;
             img.src = isAltImage ? currentLightboxImages.alt : currentLightboxImages.main;
@@ -1732,6 +1828,10 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeLightbox();
+            }
+            if (isGalleryMode && document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'ArrowLeft') galleryPrev();
+                if (e.key === 'ArrowRight') galleryNext();
             }
         });
 
