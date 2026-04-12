@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eugene Eo - Independent Curator</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #f2f5ef;
+            --ink: #1a2418;
+            --warm: #7a9a5a;
+            --rust: #507d2a;
+            --sage: #6b8c4e;
+            --slate: #4a5545;
+            --paper: #e6ede0;
+            --sap-green: #507d2a;
+            --dark-bg: #0a0a0a;
+            --light-text: #e8e4dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--ink);
+            background-color: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        @media (min-width: 500px) {
+            body {
+                cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="2" fill="%23507d2a"/></svg>') 16 16, auto;
+            }
+
+            .cursor-ring {
+                position: fixed;
+                width: 30px;
+                height: 30px;
+                border: 2px solid var(--sap-green);
+                border-radius: 50%;
+                pointer-events: none;
+                mix-blend-mode: difference;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                display: none;
+            }
+
+            body.cursor-active .cursor-ring {
+                display: block;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            z-index: 1000;
+            mix-blend-mode: difference;
+            background: transparent;
+        }
+
+        nav .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--light-text);
+            letter-spacing: 0.05em;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--light-text);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+        }
+
+        /* Dark Wrapper */
+        .dark-wrapper {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 5rem 3rem;
+        }
+
+        .hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 20vw;
+            font-weight: 400;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(232, 228, 220, 0.05);
+            text-stroke: 1px rgba(232, 228, 220, 0.05);
+            white-space: nowrap;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content h1 span {
+            display: block;
+        }
+
+        .hero-tagline {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            color: rgba(232, 228, 220, 0.8);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-ctas a {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--sap-green);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--sap-green);
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .hero-ctas a:hover {
+            background-color: var(--sap-green);
+            color: var(--dark-bg);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(232, 228, 220, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* About Section */
+        #about {
+            padding: 5rem 3rem;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-header {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--sap-green);
+            margin-bottom: 1rem;
+        }
+
+        .section-number {
+            position: absolute;
+            right: 0;
+            top: -1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            font-weight: 400;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(232, 228, 220, 0.1);
+            text-stroke: 1px rgba(232, 228, 220, 0.1);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .about-bio {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(232, 228, 220, 0.9);
+        }
+
+        .about-bio p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-bio-en {
+            border-top: 1px solid rgba(232, 228, 220, 0.2);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(232, 228, 220, 0.85);
+        }
+
+        .about-keywords {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+
+        .about-keywords h3 {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--sap-green);
+            margin-bottom: 1rem;
+        }
+
+        .keywords-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .keyword {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(232, 228, 220, 0.8);
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(80, 125, 42, 0.4);
+            border-radius: 2px;
+        }
+
+        .philosophy-quote {
+            background: linear-gradient(135deg, rgba(80, 125, 42, 0.15) 0%, rgba(80, 125, 42, 0.05) 100%);
+            border-left: 3px solid var(--sap-green);
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: rgba(232, 228, 220, 0.9);
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid rgba(232, 228, 220, 0.1);
+            border-radius: 4px;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--sap-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(232, 228, 220, 0.7);
+        }
+
+        /* Exhibition Section */
+        #exhibition {
+            padding: 5rem 3rem;
+            background-color: var(--cream);
+        }
+
+        .exhibition-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+        }
+
+        .exhibition-track.ex-en {
+            display: none;
+        }
+
+        .exhibition-track.ex-en.active {
+            display: flex;
+        }
+
+        .exhibition-track.ex-kr:not(.active) {
+            display: none;
+        }
+
+        .exhibition-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .exhibition-arrows {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .arrow-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--ink);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .arrow-btn:hover {
+            background-color: var(--ink);
+            color: white;
+        }
+
+        .exhibition-track {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 1rem;
+            scroll-snap-type: x mandatory;
+            cursor: grab;
+        }
+
+        .exhibition-track:active {
+            cursor: grabbing;
+        }
+
+        .exhibition-track::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .exhibition-track::-webkit-scrollbar-track {
+            background: var(--paper);
+        }
+
+        .exhibition-track::-webkit-scrollbar-thumb {
+            background: var(--ink);
+            border-radius: 2px;
+        }
+
+        .exhibition-card {
+            flex-shrink: 0;
+            width: 380px;
+            scroll-snap-align: start;
+            background-color: var(--ink);
+            padding: 1.5rem;
+            border-radius: 2px;
+        }
+
+        .exhibition-poster {
+            width: 100%;
+            height: 500px;
+            background-color: var(--paper);
+            margin-bottom: 1.5rem;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-size: 0.8rem;
+            color: rgba(26, 36, 24, 0.3);
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .exhibition-poster:hover {
+            transform: scale(1.02);
+        }
+
+        .exhibition-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .poster-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(80, 125, 42, 0.1), rgba(80, 125, 42, 0.05));
+            color: rgba(232, 228, 220, 0.4);
+            font-size: 0.85rem;
+        }
+
+        .exhibition-year {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sap-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .exhibition-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--light-text);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .exhibition-artists {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(232, 228, 220, 0.7);
+            margin-bottom: 0.5rem;
+        }
+
+        .exhibition-venue {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(232, 228, 220, 0.6);
+            letter-spacing: 0.05em;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            cursor: pointer;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(0,0,0,0.4);
+            border: none;
+            padding: 0.5rem 1rem;
+            z-index: 10;
+            display: none;
+        }
+
+        .lightbox-nav.visible {
+            display: block;
+        }
+
+        .lightbox-prev {
+            left: -60px;
+        }
+
+        .lightbox-next {
+            right: -60px;
+        }
+
+        .lightbox-counter {
+            text-align: center;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .lightbox-counter.visible {
+            display: block;
+        }
+
+        /* CV Section */
+        #cv {
+            padding: 5rem 3rem;
+            background-color: var(--paper);
+        }
+
+        .cv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .cv-lang-toggle {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .lang-btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--ink);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background-color: var(--ink);
+            color: white;
+        }
+
+        .cv-content {
+            display: none;
+        }
+
+        .cv-content.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .cv-column {
+            display: none;
+        }
+
+        .cv-column.active {
+            display: block;
+        }
+
+        .cv-column h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--ink);
+        }
+
+        .cv-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(26, 36, 24, 0.1);
+        }
+
+        .cv-item:last-child {
+            border-bottom: none;
+        }
+
+        .cv-year {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sap-green);
+            margin-bottom: 0.3rem;
+        }
+
+        .cv-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .cv-venue {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.85rem;
+            color: var(--slate);
+        }
+
+        /* Work Section */
+        #work {
+            padding: 5rem 3rem;
+            background-color: var(--cream);
+        }
+
+        .work-header {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .work-card {
+            border: 1px solid var(--ink);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .work-card:hover {
+            background-color: var(--ink);
+            color: white;
+        }
+
+        .work-year {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sap-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .work-card:hover .work-year {
+            color: var(--sap-green);
+        }
+
+        .work-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .work-subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        .work-card:hover .work-subtitle {
+            color: rgba(232, 228, 220, 0.8);
+        }
+
+        /* Essay Section */
+        #essay {
+            padding: 5rem 3rem;
+            background-color: var(--paper);
+        }
+
+        .essay-header {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .essay-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .essay-card {
+            border: 1px solid var(--ink);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .essay-card:hover {
+            background-color: var(--ink);
+            color: white;
+        }
+
+        .essay-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .essay-subtitle {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.85rem;
+            color: var(--slate);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .essay-card:hover .essay-subtitle {
+            color: rgba(232, 228, 220, 0.8);
+        }
+
+        /* Contact Section */
+        #contact {
+            padding: 5rem 3rem;
+            background-color: var(--ink);
+            color: var(--light-text);
+        }
+
+        .contact-header {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 800px;
+        }
+
+        .contact-details {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .contact-item {
+            margin-bottom: 2rem;
+        }
+
+        .contact-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--sap-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1rem;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-value:hover {
+            opacity: 0.8;
+        }
+
+        .contact-value a {
+            color: var(--light-text);
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+            border-bottom: 1px solid rgba(232, 228, 220, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--light-text);
+            font-size: 0.95rem;
+            padding: 0.5rem 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(232, 228, 220, 0.5);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-bottom-color: var(--sap-green);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-submit {
+            align-self: flex-start;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--sap-green);
+            background-color: transparent;
+            color: var(--sap-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .form-submit:hover {
+            background-color: var(--sap-green);
+            color: var(--ink);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 3rem;
+            background-color: var(--dark-bg);
+            color: rgba(232, 228, 220, 0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        footer a {
+            color: rgba(232, 228, 220, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--sap-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            nav a {
+                font-size: 0.65rem;
+            }
+
+            .section-number {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-grid,
+            .essay-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cv-content.active {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-bg-text {
+                font-size: 30vw;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .cursor-ring {
+                display: none !important;
+            }
+
+            nav {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            #hero {
+                padding: 2rem 1rem;
+            }
+
+            #about,
+            #cv,
+            #exhibition,
+            #work,
+            #essay,
+            #contact {
+                padding: 2rem 1rem;
+            }
+
+            .exhibition-card {
+                width: 280px;
+            }
+
+            .exhibition-poster {
+                height: 350px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor-ring"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Eugene.</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#cv">CV</a></li>
+            <li><a href="#exhibition">Exhibition</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#essay">Essay</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="dark-wrapper">
+        <section id="hero">
+            <canvas class="hero-canvas" id="neuralCanvas"></canvas>
+            <div class="hero-bg-text">Eugene</div>
+            <div class="hero-content">
+                <h1>
+                    <span>Eugene</span>
+                    <span>Eo</span>
+                </h1>
+                <p class="hero-tagline">Independent Curator / Based in Seoul</p>
+                <div class="hero-ctas">
+                    <a href="#cv">View CV</a>
+                    <a href="#contact">Contact</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">Scroll to explore</div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-header">
+                <span class="section-tag">About</span>
+                <div class="section-number">01</div>
+            </div>
+
+            <div class="about-content">
+                <div>
+                    <div class="about-bio">
+                        <p>물·땅이 지닌 물질 자율성과 우주적 역학, 신화적 이미지들을 매개로 보이지 않는 관계망을 감각의 차원으로 제시합니다. 조각·설치에 뿌리를 둔 전시를 공간-담론적 실험실로 삼아 관객이 '감각-존재-생태'의 조건을 다시 마주하도록 유도하는 일을 합니다.</p>
+                        <p>조소과 출신 설치미술가로 시작해서 6년간 기관 소속 큐레이터로 상업과 비상업의 경계를 넘나드는 다양한 기획에 참여했고, 현재 비평, 설치, 베뉴 내 아트 컨설팅, 프로젝트 협력 등을 진행 중입니다.</p>
+                        <p>독립 후의 연구 중심 실천은 상업/비상업, 예술/과학, 인간/비-인간 경계를 넘나들며 전시 기획, 비평적 글쓰기, 워크숍, 협업 프로그램 등을 통해 세계 만들기(world-building: 도나해러웨이)를 수행하는 것입니다. 물질이 스스로 말하게 하는 '매개(mediation)' 전략과 '낯설게 하기' 장치를 결합해 관객은 자신이 딛는 토양과 흐르는 물, 공존하는 종(species)의 목소리를 동시적으로 경험하며, 삶·죽음·생성을 둘러싼 존재론적 질문을 감각적으로 탐사하도록 해왔습니다.</p>
+                        <p>최근 '염원'이라는 주제로 도나 해러웨이의 '함께-되기' 개념에 대해 풀어냈고, 신한갤러리 역삼에서 2026년 10월 3인 단체전으로 전시 예정입니다.</p>
+                    </div>
+
+                    <div class="about-bio-en">
+                        <p>Through the material autonomy of water and earth, cosmic dynamics, and mythological imagery, I present invisible networks of relations at the level of sensory experience. Rooted in sculpture and installation, I transform exhibitions into spatial-discursive laboratories that invite audiences to re-encounter the conditions of 'sensation-being-ecology.'</p>
+                        <p>Beginning as an installation artist with a background in sculpture, I spent six years as an institutional curator, participating in diverse projects across commercial and non-commercial boundaries. Currently, I am engaged in criticism, installation, art consulting within venues, and collaborative projects.</p>
+                        <p>My research-driven practice since going independent traverses the boundaries of commercial/non-commercial, art/science, and human/non-human, performing world-building (Donna Haraway) through exhibition curation, critical writing, workshops, and collaborative programs. By combining 'mediation' strategies that let materials speak for themselves with defamiliarization devices, audiences simultaneously experience the soil beneath their feet, flowing water, and the voices of coexisting species, sensorially exploring ontological questions surrounding life, death, and becoming.</p>
+                        <p>Recently, I have been exploring Donna Haraway's concept of 'becoming-with' under the theme of 'Yeomwon,' with a three-person group exhibition planned for October 2026 at Shinhan Gallery Yeoksam.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="about-keywords">
+                        <h3>Research Interests</h3>
+                        <div class="keywords-list">
+                            <span class="keyword">Materiality</span>
+                            <span class="keyword">Mediation</span>
+                            <span class="keyword">World-building</span>
+                            <span class="keyword">Relational Ontology</span>
+                            <span class="keyword">Non-human</span>
+                            <span class="keyword">Ecology</span>
+                            <span class="keyword">Installation</span>
+                            <span class="keyword">Critical Writing</span>
+                        </div>
+                    </div>
+
+                    <div class="philosophy-quote">
+                        "The world is not divided into the living and the nonliving. Rather, all beings, human and non-human, are entangled in a complex web of relations. The task of curating is to reveal and celebrate these connections."
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <div class="stat-number">6+</div>
+                            <div class="stat-label">Years Curating</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-label">Exhibitions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Exhibition Section -->
+    <section id="exhibition">
+        <div class="exhibition-header">
+            <div class="section-tag">Exhibition</div>
+            <div class="cv-lang-toggle exhibition-lang-toggle">
+                <button class="lang-btn ex-lang-btn active" onclick="switchExLang('kr')">한국어</button>
+                <button class="lang-btn ex-lang-btn" onclick="switchExLang('en')">English</button>
+            </div>
+        </div>
+
+        <div class="exhibition-controls">
+            <div></div>
+            <div class="exhibition-arrows">
+                <button class="arrow-btn" id="prevBtn">&larr;</button>
+                <button class="arrow-btn" id="nextBtn">&rarr;</button>
+            </div>
+        </div>
+
+        <!-- Korean Exhibition -->
+        <div class="exhibition-track ex-kr active" id="exhibitionTrack">
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <div class="poster-placeholder">Upcoming Exhibition 2026</div>
+                </div>
+                <div class="exhibition-year">2026</div>
+                <div class="exhibition-name">염원: 도래하지 않은</div>
+                <div class="exhibition-artists">신한갤러리 역삼</div>
+                <div class="exhibition-venue">서울</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <img src="beneath-poster.jpg" onclick="openGallery(['beneath-ws1.jpg','beneath-ws2.jpg','beneath-ws3.jpg','beneath-ws4.jpg','beneath-ws5.jpg','beneath-ws6.jpg'], 0)" style="cursor:pointer;" alt="Beneath, Upon, Beyond" onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'>Beneath, Upon, Beyond 2025</div>'">
+                </div>
+                <div class="exhibition-year">2025</div>
+                <div class="exhibition-name">Beneath, Upon, Beyond</div>
+                <div class="exhibition-artists">송나래, 안진선, 이승연</div>
+                <div class="exhibition-venue">오온, 서울</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <img src="%EB%8B%A4%EC%9D%B4%EB%B8%8C%EC%84%9C%EC%9A%B8_%ED%8C%8C%EA%B2%AC%EC%B2%B4%EB%93%A4_%ED%8F%AC%EC%8A%A4%ED%84%B0_%EC%B5%9C%EC%A2%85.jpg" onclick="openLightbox('%EB%8B%A4%EC%9D%B4%EB%B8%8C%EC%84%9C%EC%9A%B8_%ED%8C%8C%EA%B2%AC%EC%B2%B4%EB%93%A4_%ED%8F%AC%EC%8A%A4%ED%84%B0_%EC%B5%9C%EC%A2%85.jpg','%EC%B5%9C%EC%A2%85.jpg')" style="cursor:pointer;" alt="파견체들">
+                </div>
+                <div class="exhibition-year">2024</div>
+                <div class="exhibition-name">파견체들</div>
+                <div class="exhibition-artists">김도경, 김예지</div>
+                <div class="exhibition-venue">다이브서울, 서울</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <div class="poster-placeholder">물은 모든 것을 매개한다 2023</div>
+                </div>
+                <div class="exhibition-year">2023</div>
+                <div class="exhibition-name">물은 모든 것을 매개한다</div>
+                <div class="exhibition-artists">김의선, 손희민, 허연화</div>
+                <div class="exhibition-venue">갤러리밈, 서울</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <div class="poster-placeholder">Into the Light 2022</div>
+                </div>
+                <div class="exhibition-year">2022</div>
+                <div class="exhibition-name">Into the Light</div>
+                <div class="exhibition-artists">그룹전</div>
+                <div class="exhibition-venue">그랜드 하얏트 파르나스 제주</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <img src="samoha-poster.jpg" alt="내가 사모하는 것에 무슨 쓸모가 있나요" onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'>내가 사모하는 것에 무슨 쓸모가 있나요</div>'">
+                </div>
+                <div class="exhibition-year">2018</div>
+                <div class="exhibition-name">내가 사모하는 것에 무슨 쓸모가 있나요</div>
+                <div class="exhibition-artists">행화탕</div>
+                <div class="exhibition-venue">서울</div>
+            </div>
+        </div>
+
+        <!-- English Exhibition -->
+        <div class="exhibition-track ex-en" id="exhibitionTrackEn">
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <div class="poster-placeholder">Upcoming Exhibition 2026</div>
+                </div>
+                <div class="exhibition-year">2026</div>
+                <div class="exhibition-name">Yeomwon: Yet to Arrive</div>
+                <div class="exhibition-artists">Shinhan Gallery Yeoksam</div>
+                <div class="exhibition-venue">Seoul</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <img src="beneath-poster.jpg" onclick="openGallery(['beneath-ws1.jpg','beneath-ws2.jpg','beneath-ws3.jpg','beneath-ws4.jpg','beneath-ws5.jpg','beneath-ws6.jpg'], 0)" style="cursor:pointer;" alt="Beneath, Upon, Beyond" onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'>Beneath, Upon, Beyond 2025</div>'">
+                </div>
+                <div class="exhibition-year">2025</div>
+                <div class="exhibition-name">Beneath, Upon, Beyond</div>
+                <div class="exhibition-artists">Narae Song, Jinseon An, Seungyeon Lee</div>
+                <div class="exhibition-venue">ooooon, Seoul</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <img src="%EB%8B%A4%EC%9D%B4%EB%B8%8C%EC%84%9C%EC%9A%B8_%ED%8C%8C%EA%B2%AC%EC%B2%B4%EB%93%A4_%ED%8F%AC%EC%8A%A4%ED%84%B0_%EC%B5%9C%EC%A2%85.jpg" onclick="openLightbox('%EB%8B%A4%EC%9D%B4%EB%B8%8C%EC%84%9C%EC%9A%B8_%ED%8C%8C%EA%B2%AC%EC%B2%B4%EB%93%A4_%ED%8F%AC%EC%8A%A4%ED%84%B0_%EC%B5%9C%EC%A2%85.jpg','%EC%B5%9C%EC%A2%85.jpg')" style="cursor:pointer;" alt="Dispatchers">
+                </div>
+                <div class="exhibition-year">2024</div>
+                <div class="exhibition-name">Dispatchers</div>
+                <div class="exhibition-artists">Dokyung Kim, Yeji Kim</div>
+                <div class="exhibition-venue">Dive Seoul, Seoul</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <div class="poster-placeholder">Water Mediates Everything 2023</div>
+                </div>
+                <div class="exhibition-year">2023</div>
+                <div class="exhibition-name">Water Mediates Everything</div>
+                <div class="exhibition-artists">Uiseon Kim, Heemin Son, Yeonhwa Heo</div>
+                <div class="exhibition-venue">GalleryMEME, Seoul</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <div class="poster-placeholder">Into the Light 2022</div>
+                </div>
+                <div class="exhibition-year">2022</div>
+                <div class="exhibition-name">Into the Light</div>
+                <div class="exhibition-artists">Group Exhibition</div>
+                <div class="exhibition-venue">Grand Hyatt Parnas Jeju</div>
+            </div>
+
+            <div class="exhibition-card">
+                <div class="exhibition-poster">
+                    <img src="samoha-poster.jpg" alt="What Use Is What I Love" onerror="this.parentElement.innerHTML='<div class=\'poster-placeholder\'>What Use Is What I Love</div>'">
+                </div>
+                <div class="exhibition-year">2018</div>
+                <div class="exhibition-name">What Use Is What I Love</div>
+                <div class="exhibition-artists">Haenghwatang</div>
+                <div class="exhibition-venue">Seoul</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <button class="lightbox-nav lightbox-prev" id="lbPrev" onclick="event.stopPropagation(); galleryPrev()">&larr;</button>
+            <img class="lightbox-image" id="lightboxImage" onclick="toggleLightboxImage()" alt="">
+            <button class="lightbox-nav lightbox-next" id="lbNext" onclick="event.stopPropagation(); galleryNext()">&rarr;</button>
+            <div class="lightbox-counter" id="lbCounter"></div>
+        </div>
+    </div>
+
+    <!-- CV Section -->
+    <section id="cv">
+        <div class="cv-header">
+            <div>
+                <div class="section-tag">Curating & Writing</div>
+                <div class="section-number">02</div>
+            </div>
+            <div class="cv-lang-toggle">
+                <button class="lang-btn cv-lang-btn active" onclick="switchLang('kr')">한국어</button>
+                <button class="lang-btn cv-lang-btn" onclick="switchLang('en')">English</button>
+            </div>
+        </div>
+
+        <!-- Korean CV -->
+        <div class="cv-content cv-kr active">
+            <div>
+                <h3>독립 기획</h3>
+                <div class="cv-item">
+                    <div class="cv-year">2026</div>
+                    <div class="cv-title">염원: 도래하지 않은</div>
+                    <div class="cv-venue">신한갤러리 역삼 (예정)</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2025</div>
+                    <div class="cv-title">Beneath, Upon, Beyond</div>
+                    <div class="cv-venue">오온, 서울</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2024</div>
+                    <div class="cv-title">파견체들</div>
+                    <div class="cv-venue">다이브서울</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">물은 모든 것을 매개한다</div>
+                    <div class="cv-venue">갤러리밈, 서울</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2022</div>
+                    <div class="cv-title">Tim Bengel Solo Show</div>
+                    <div class="cv-venue">Gallery Rother (독일) / 갤러리밈</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2022</div>
+                    <div class="cv-title">Into the Light</div>
+                    <div class="cv-venue">파르나스 호텔, 제주</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2022</div>
+                    <div class="cv-title">The Brand New Moment</div>
+                    <div class="cv-venue">신세계면세점 본점 외 다수</div>
+                </div>
+            </div>
+
+            <div>
+                <h3>기관소속 전시</h3>
+                <div class="cv-item">
+                    <div class="cv-year">2024</div>
+                    <div class="cv-title">Unfold X</div>
+                    <div class="cv-venue">문화역284</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">모욕을 당한 자이며 위대한</div>
+                    <div class="cv-venue">정정엽 개인전 / 갤러리밈</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Patagium</div>
+                    <div class="cv-venue">정수정, 이재석 2인전 / 갤러리밈</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Re:site_ceramics</div>
+                    <div class="cv-venue">김준명, 유의정, 주세균 3인전 / 갤러리밈</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">숲의 계절</div>
+                    <div class="cv-venue">노경희 개인전 / 갤러리밈</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">쉬고 있는 여자들</div>
+                    <div class="cv-venue">배미정 개인전 / 갤러리밈</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Precarious Geographies</div>
+                    <div class="cv-venue">박준형, 최은정 2인전 / 갤러리밈</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2022</div>
+                    <div class="cv-title">잃어버린 숲</div>
+                    <div class="cv-venue">허윤희 개인전 / 갤러리밈</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2020</div>
+                    <div class="cv-title">The River and the Raft</div>
+                    <div class="cv-venue">Liza Lou 개인전 / 리만머핀, 송원아트센터</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2020</div>
+                    <div class="cv-title">Glitch World</div>
+                    <div class="cv-venue">송원아트센터</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2019</div>
+                    <div class="cv-title">Quantum Leap: 비약적 도약</div>
+                    <div class="cv-venue">신당창작아케이드, 송원아트센터 외 다수</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- English CV -->
+        <div class="cv-content cv-en">
+            <div>
+                <h3>Selected Exhibitions</h3>
+                <div class="cv-item">
+                    <div class="cv-year">2026</div>
+                    <div class="cv-title">Longing: The Unarrived</div>
+                    <div class="cv-venue">Shinhan Gallery Yeoksam (Forthcoming)</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2025</div>
+                    <div class="cv-title">Beneath, Upon, Beyond</div>
+                    <div class="cv-venue">ooooon, Seoul</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2024</div>
+                    <div class="cv-title">Dispatchers</div>
+                    <div class="cv-venue">Dive Seoul</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Water Mediates Everything</div>
+                    <div class="cv-venue">GalleryMEME, Seoul</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2022</div>
+                    <div class="cv-title">Tim Bengel Solo Show</div>
+                    <div class="cv-venue">Gallery Rother (Germany) / GalleryMEME</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2022</div>
+                    <div class="cv-title">Into the Light</div>
+                    <div class="cv-venue">Grand Hyatt Parnas Jeju</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2022</div>
+                    <div class="cv-title">The Brand New Moment</div>
+                    <div class="cv-venue">Shinsegae Duty Free + Others</div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Institutional Projects</h3>
+                <div class="cv-item">
+                    <div class="cv-year">2024</div>
+                    <div class="cv-title">Unfold X</div>
+                    <div class="cv-venue">Culture Station 284</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Insulted and Great</div>
+                    <div class="cv-venue">Jung Jung-yeop Solo / GalleryMEME</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Patagium</div>
+                    <div class="cv-venue">Jung Su-jung, Lee Jae-seok / GalleryMEME</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Re:site_ceramics</div>
+                    <div class="cv-venue">Kim Jun-myung, Yoo Ui-jung, Joo Se-gyun / GalleryMEME</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Forest Seasons</div>
+                    <div class="cv-venue">Noh Kyung-hee Solo / GalleryMEME</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Resting Women</div>
+                    <div class="cv-venue">Bae Mi-jung Solo / GalleryMEME</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2023</div>
+                    <div class="cv-title">Precarious Geographies</div>
+                    <div class="cv-venue">Park Jun-hyung, Choi Eun-jung / GalleryMEME</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2022</div>
+                    <div class="cv-title">Lost Forest</div>
+                    <div class="cv-venue">Heo Yun-hee Solo / GalleryMEME</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2020</div>
+                    <div class="cv-title">The River and the Raft</div>
+                    <div class="cv-venue">Liza Lou Solo / Lehmann Maupin, Songwon Art Center</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2020</div>
+                    <div class="cv-title">Glitch World</div>
+                    <div class="cv-venue">Songwon Art Center</div>
+                </div>
+                <div class="cv-item">
+                    <div class="cv-year">2019</div>
+                    <div class="cv-title">Quantum Leap</div>
+                    <div class="cv-venue">Sindang Creative Arcade, Songwon Art Center + Others</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work">
+        <div class="work-header">
+            <div class="section-tag">Work</div>
+            <div class="section-number">03</div>
+        </div>
+
+        <div class="work-grid">
+            <div class="work-card">
+                <div class="work-year">2026</div>
+                <div class="work-title">염원: 도래하지 않은</div>
+                <div class="work-subtitle">Longing: The Unarrived -- Shinhan Gallery Yeoksam, Seoul</div>
+            </div>
+
+            <div class="work-card">
+                <div class="work-year">2025</div>
+                <div class="work-title">Beneath, Upon, Beyond | 송나래, 안진선, 이승연</div>
+                <div class="work-subtitle">ooooon, Seoul</div>
+            </div>
+
+            <div class="work-card">
+                <div class="work-year">2024</div>
+                <div class="work-title">파견체들 | 김도경, 김예지</div>
+                <div class="work-subtitle">Dispatchers -- Dive Seoul, Seoul</div>
+            </div>
+
+            <div class="work-card">
+                <div class="work-year">2023</div>
+                <div class="work-title">물은 모든 것을 매개한다 | 김의선, 손희민, 허연화</div>
+                <div class="work-subtitle">Water Mediates Everything -- GalleryMEME, Seoul</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Essay Section -->
+    <section id="essay">
+        <div class="essay-header">
+            <div class="section-tag">Essay</div>
+        </div>
+
+        <div class="essay-grid">
+            <div class="essay-card">
+                <div class="essay-title">아기 곁을 지키는 고양이: 돌봄의 규범, 알로패런팅, 반려종, 그리고 함께-되기</div>
+                <div class="essay-subtitle">Care, Alloparenting, Companion Species, and Becoming-with</div>
+            </div>
+
+            <div class="essay-card">
+                <div class="essay-title">공존. 낭만적 단어가 아닌, 트러블 안에서 살아남기.</div>
+                <div class="essay-subtitle">Coexistence: not a romantic notion, but a practice of staying with the trouble</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact-header">
+            <div class="section-tag">Get in Touch</div>
+            <div class="section-number">04</div>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-details">
+                <div class="contact-item">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value"><a href="mailto:fishuce@gmail.com">fishuce@gmail.com</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Instagram</div>
+                    <div class="contact-value"><a href="https://instagram.com/00_815" target="_blank">@00_815</a></div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Location</div>
+                    <div class="contact-value">Seoul, South Korea</div>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="handleContactForm(event)">
+                <div class="form-group">
+                    <input type="text" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <span>2026 Eugene Eo. All rights reserved.</span>
+        <a href="https://instagram.com/00_815" target="_blank">Instagram</a>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursorRing = document.querySelector('.cursor-ring');
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (cursorRing) {
+                cursorRing.style.left = mouseX + 'px';
+                cursorRing.style.top = mouseY + 'px';
+            }
+        });
+
+        document.addEventListener('mouseenter', () => {
+            document.body.classList.add('cursor-active');
+        });
+
+        document.addEventListener('mouseleave', () => {
+            document.body.classList.remove('cursor-active');
+        });
+
+        // Neural Network Canvas Animation
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const nodes = [];
+        const nodeCount = 180;
+        const connectDistance = 160;
+        const mouseDistance = 200;
+
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(80, 125, 42, 0.6)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push(new Node());
+        }
+
+        let mousePos = { x: canvas.width / 2, y: canvas.height / 2 };
+
+        document.addEventListener('mousemove', (e) => {
+            mousePos = { x: e.clientX, y: e.clientY };
+        });
+
+        function drawConnections() {
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectDistance) {
+                        ctx.strokeStyle = `rgba(80, 125, 42, ${0.3 * (1 - distance / connectDistance)})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function drawMouseGlow() {
+            for (let i = 0; i < nodes.length; i++) {
+                const dx = nodes[i].x - mousePos.x;
+                const dy = nodes[i].y - mousePos.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouseDistance) {
+                    ctx.strokeStyle = `rgba(80, 125, 42, ${0.8 * (1 - distance / mouseDistance)})`;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(mousePos.x, mousePos.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < nodes.length; i++) {
+                nodes[i].update();
+                nodes[i].draw();
+            }
+
+            drawConnections();
+            drawMouseGlow();
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Lightbox Functions
+        let currentLightboxImages = { main: '', alt: '' };
+        let isAltImage = false;
+        let galleryImages = [];
+        let galleryIndex = 0;
+        let isGalleryMode = false;
+
+        function openLightbox(mainImage, altImage) {
+            isGalleryMode = false;
+            currentLightboxImages = { main: mainImage, alt: altImage };
+            isAltImage = false;
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImage');
+            img.src = mainImage;
+            img.alt = 'Exhibition image';
+            document.getElementById('lbPrev').classList.remove('visible');
+            document.getElementById('lbNext').classList.remove('visible');
+            document.getElementById('lbCounter').classList.remove('visible');
+            lightbox.classList.add('active');
+        }
+
+        function openGallery(images, startIndex) {
+            isGalleryMode = true;
+            galleryImages = images;
+            galleryIndex = startIndex || 0;
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImage');
+            img.src = galleryImages[galleryIndex];
+            img.alt = 'Exhibition image';
+            document.getElementById('lbPrev').classList.add('visible');
+            document.getElementById('lbNext').classList.add('visible');
+            document.getElementById('lbCounter').classList.add('visible');
+            updateGalleryCounter();
+            lightbox.classList.add('active');
+        }
+
+        function galleryPrev() {
+            if (!isGalleryMode) return;
+            galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+            const img = document.getElementById('lightboxImage');
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = galleryImages[galleryIndex];
+                img.style.opacity = 1;
+            }, 200);
+            updateGalleryCounter();
+        }
+
+        function galleryNext() {
+            if (!isGalleryMode) return;
+            galleryIndex = (galleryIndex + 1) % galleryImages.length;
+            const img = document.getElementById('lightboxImage');
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = galleryImages[galleryIndex];
+                img.style.opacity = 1;
+            }, 200);
+            updateGalleryCounter();
+        }
+
+        function updateGalleryCounter() {
+            document.getElementById('lbCounter').textContent = (galleryIndex + 1) + ' / ' + galleryImages.length;
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function toggleLightboxImage() {
+            if (isGalleryMode) {
+                galleryNext();
+                return;
+            }
+            const img = document.getElementById('lightboxImage');
+            isAltImage = !isAltImage;
+            img.src = isAltImage ? currentLightboxImages.alt : currentLightboxImages.main;
+        }
+
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+            if (isGalleryMode && document.getElementById('lightbox').classList.contains('active')) {
+                if (e.key === 'ArrowLeft') galleryPrev();
+                if (e.key === 'ArrowRight') galleryNext();
+            }
+        });
+
+        // Exhibition Drag Scroll
+        function getActiveTrack() {
+            return document.querySelector('.exhibition-track.active');
+        }
+
+        function initDragScroll(track) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            track.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+
+            track.addEventListener('mouseleave', () => { isDown = false; });
+            track.addEventListener('mouseup', () => { isDown = false; });
+
+            track.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - track.offsetLeft;
+                const walk = (x - startX) * 1;
+                track.scrollLeft = scrollLeft - walk;
+            });
+        }
+
+        initDragScroll(document.getElementById('exhibitionTrack'));
+        initDragScroll(document.getElementById('exhibitionTrackEn'));
+
+        // Arrow Navigation
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            const t = getActiveTrack();
+            if (t) t.scrollBy({ left: -380, behavior: 'smooth' });
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            const t = getActiveTrack();
+            if (t) t.scrollBy({ left: 380, behavior: 'smooth' });
+        });
+
+        // Exhibition Language Toggle
+        function switchExLang(lang) {
+            document.querySelectorAll('.ex-lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.exhibition-track').forEach(t => t.classList.remove('active'));
+
+            if (lang === 'kr') {
+                document.querySelector('.ex-lang-btn:first-of-type').classList.add('active');
+                document.querySelector('.ex-kr').classList.add('active');
+            } else {
+                document.querySelector('.ex-lang-btn:last-of-type').classList.add('active');
+                document.querySelector('.ex-en').classList.add('active');
+            }
+        }
+
+        // CV Language Toggle
+        function switchLang(lang) {
+            document.querySelectorAll('.cv-lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.cv-content').forEach(content => content.classList.remove('active'));
+
+            if (lang === 'kr') {
+                document.querySelector('.cv-lang-btn:first-of-type').classList.add('active');
+                document.querySelector('.cv-kr').classList.add('active');
+            } else {
+                document.querySelector('.cv-lang-btn:last-of-type').classList.add('active');
+                document.querySelector('.cv-en').classList.add('active');
+            }
+        }
+
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.section-tag, .work-card, .essay-card');
+
+        const revealOnScroll = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealOnScroll.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => {
+            el.classList.add('reveal');
+            revealOnScroll.observe(el);
+        });
+
+        // Contact Form Handler
+        function handleContactForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            // Reset form
+            form.reset();
+
+            // Show success message
+            const submitBtn = form.querySelector('.form-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Message sent!';
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
