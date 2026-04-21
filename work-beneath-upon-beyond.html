@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beneath, Upon, Beyond | Eugene Eo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #f2f5ef;
+            --ink: #1a2418;
+            --warm: #7a9a5a;
+            --rust: #507d2a;
+            --sage: #6b8c4e;
+            --slate: #4a5545;
+            --paper: #e6ede0;
+            --sap-green: #507d2a;
+            --dark-bg: #0a0a0a;
+            --light-text: #e8e4dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--ink);
+            background-color: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            z-index: 1000;
+            background: rgba(242, 245, 239, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(26, 36, 24, 0.08);
+        }
+
+        nav .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--ink);
+            letter-spacing: 0.05em;
+            text-decoration: none;
+        }
+
+        .back-link {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--ink);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--sap-green);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .work-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--sap-green);
+            margin-bottom: 1rem;
+        }
+
+        .work-title-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+        }
+
+        .work-artists {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            color: var(--slate);
+            margin-bottom: 0.4rem;
+        }
+
+        .work-venue {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            color: var(--slate);
+            margin-bottom: 3rem;
+        }
+
+        .poster-wrap {
+            width: 100%;
+            margin-bottom: 3.5rem;
+            background-color: var(--paper);
+        }
+
+        .poster-wrap img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .work-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--ink);
+            max-width: 760px;
+            margin: 0 auto 4rem;
+        }
+
+        .work-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .work-text .title-callout {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--sap-green);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .divider {
+            width: 48px;
+            height: 1px;
+            background-color: var(--sap-green);
+            margin: 3rem auto;
+        }
+
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--sap-green);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        .photo-item {
+            width: 100%;
+            background-color: var(--paper);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.01);
+        }
+
+        .photo-item img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 92vw;
+            max-height: 92vh;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 88vh;
+            display: block;
+            transition: opacity 0.2s ease;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -42px;
+            right: 0;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(0,0,0,0.4);
+            border: none;
+            padding: 0.75rem 1.2rem;
+            z-index: 10;
+        }
+
+        .lightbox-prev { left: -68px; }
+        .lightbox-next { right: -68px; }
+
+        .lightbox-counter {
+            text-align: center;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 3rem;
+            background-color: var(--dark-bg);
+            color: rgba(232, 228, 220, 0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        footer a {
+            color: rgba(232, 228, 220, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--sap-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            main {
+                padding: 6rem 1.25rem 3rem;
+            }
+
+            .work-title-main {
+                font-size: 1.8rem;
+            }
+
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">Eugene.</a>
+        <a href="index.html#work" class="back-link">&larr; Back to Work</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="work-meta">2025 &nbsp;/&nbsp; Curated Exhibition</div>
+        <h1 class="work-title-main">Beneath, Upon, Beyond</h1>
+        <div class="work-artists">송나래, 안진선, 이승연</div>
+        <div class="work-venue">ooooon, Seoul</div>
+
+        <div class="poster-wrap">
+            <img src="beneath-poster.jpg" alt="Beneath, Upon, Beyond poster">
+        </div>
+
+        <div class="work-text">
+            <div class="title-callout">《Beneath, Upon, Beyond》</div>
+            <p>'땅'을 매개로 만난 세 작가는 마치 땅에 뺨을 대는 행위처럼 미세한 각자의 시선을 풀어낸다. 인류세로 인해 인간이 절박하게 질문하게 된 생존과 생명의 의미를 탐구하며, 우리가 서 있는 땅과 공생의 가능성을 탐구한다. 땅에서 재배한 재료를 사용하는 송나래, 두 발 딛고 선 땅 위를 재인식하는 안진선, 땅 너머의 비인간 존재를 감각하는 이승연의 다채로운 이야기는 관객에게 경각심이 내재된 감각을 재인식하게끔 한다.</p>
+        </div>
+
+        <div class="divider"></div>
+        <div class="section-label">Installation Views</div>
+
+        <div class="photo-grid">
+            <div class="photo-item" onclick="openGallery(0)">
+                <img src="beneath-ws1.jpg" alt="Installation view 1">
+            </div>
+            <div class="photo-item" onclick="openGallery(1)">
+                <img src="beneath-ws2.jpg" alt="Installation view 2">
+            </div>
+            <div class="photo-item" onclick="openGallery(2)">
+                <img src="beneath-ws3.jpg" alt="Installation view 3">
+            </div>
+            <div class="photo-item" onclick="openGallery(3)">
+                <img src="beneath-ws4.jpg" alt="Installation view 4">
+            </div>
+            <div class="photo-item" onclick="openGallery(4)">
+                <img src="beneath-ws5.jpg" alt="Installation view 5">
+            </div>
+            <div class="photo-item" onclick="openGallery(5)">
+                <img src="beneath-ws6.jpg" alt="Installation view 6">
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation(); galleryPrev()">&larr;</button>
+            <img class="lightbox-image" id="lightboxImage" alt="">
+            <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation(); galleryNext()">&rarr;</button>
+            <div class="lightbox-counter" id="lbCounter"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <span>2026 Eugene Eo. All rights reserved.</span>
+        <a href="https://instagram.com/00_815" target="_blank">Instagram</a>
+    </footer>
+
+    <script>
+        const galleryImages = [
+            'beneath-ws1.jpg',
+            'beneath-ws2.jpg',
+            'beneath-ws3.jpg',
+            'beneath-ws4.jpg',
+            'beneath-ws5.jpg',
+            'beneath-ws6.jpg'
+        ];
+        let galleryIndex = 0;
+
+        function openGallery(index) {
+            galleryIndex = index || 0;
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImage');
+            img.src = galleryImages[galleryIndex];
+            updateGalleryCounter();
+            lightbox.classList.add('active');
+        }
+
+        function galleryPrev() {
+            galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+            const img = document.getElementById('lightboxImage');
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = galleryImages[galleryIndex];
+                img.style.opacity = 1;
+            }, 180);
+            updateGalleryCounter();
+        }
+
+        function galleryNext() {
+            galleryIndex = (galleryIndex + 1) % galleryImages.length;
+            const img = document.getElementById('lightboxImage');
+            img.style.opacity = 0;
+            setTimeout(() => {
+                img.src = galleryImages[galleryIndex];
+                img.style.opacity = 1;
+            }, 180);
+            updateGalleryCounter();
+        }
+
+        function updateGalleryCounter() {
+            document.getElementById('lbCounter').textContent = (galleryIndex + 1) + ' / ' + galleryImages.length;
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+
+        document.getElementById('lightboxImage').addEventListener('click', galleryNext);
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') galleryPrev();
+            if (e.key === 'ArrowRight') galleryNext();
+        });
+    </script>
+</body>
+</html>
