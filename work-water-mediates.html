@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>물은 모든 것을 매개한다, Water Mediates Everything | Eugene Eo</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #f2f5ef;
+            --ink: #1a2418;
+            --warm: #7a9a5a;
+            --rust: #507d2a;
+            --sage: #6b8c4e;
+            --slate: #4a5545;
+            --paper: #e6ede0;
+            --sap-green: #507d2a;
+            --dark-bg: #0a0a0a;
+            --light-text: #e8e4dc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--ink);
+            background-color: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            z-index: 1000;
+            background: rgba(242, 245, 239, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(26, 36, 24, 0.08);
+        }
+
+        nav .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--ink);
+            letter-spacing: 0.05em;
+            text-decoration: none;
+        }
+
+        .back-link {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--ink);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--sap-green);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .work-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--sap-green);
+            margin-bottom: 1rem;
+        }
+
+        .work-title-main {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+        }
+
+        .work-artists {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1rem;
+            color: var(--slate);
+            margin-bottom: 0.4rem;
+        }
+
+        .work-venue {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            color: var(--slate);
+            margin-bottom: 3rem;
+        }
+
+        .poster-stack {
+            width: 100%;
+            margin-bottom: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .poster-stack img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            background-color: var(--paper);
+        }
+
+        .work-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--ink);
+            max-width: 760px;
+            margin: 0 auto 4rem;
+        }
+
+        .work-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .work-text .title-callout {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--sap-green);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .credit {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--slate);
+            letter-spacing: 0.05em;
+            margin-top: 2.5rem;
+            text-align: right;
+        }
+
+        .credit span {
+            display: block;
+        }
+
+        .divider {
+            width: 48px;
+            height: 1px;
+            background-color: var(--sap-green);
+            margin: 3rem auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 3rem;
+            background-color: var(--dark-bg);
+            color: rgba(232, 228, 220, 0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        footer a {
+            color: rgba(232, 228, 220, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--sap-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            main {
+                padding: 6rem 1.25rem 3rem;
+            }
+
+            .work-title-main {
+                font-size: 1.8rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">Eugene.</a>
+        <a href="index.html#work" class="back-link">&larr; Back to Work</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="work-meta">2023 &nbsp;/&nbsp; Curated Exhibition</div>
+        <h1 class="work-title-main">물은 모든 것을 매개한다<br>Water Mediates Everything</h1>
+        <div class="work-artists">김의선, 손희민, 허연화</div>
+        <div class="work-venue">GalleryMEME, Seoul</div>
+
+        <div class="work-text">
+            <div class="title-callout">《물은 모든 것을 매개한다》</div>
+
+            <p>《물은 모든 것을 매개한다》에서 세 작가는 심해에서의 호흡을 상상해 보라고 권유한다. 햇빛 한줄기 들지 않는 깊은 바닷속은 인류에겐 우주탐험보다 위험하고 어려운 극한의 대상이다. 김의선, 손희민, 허연화 3인 조각가는 자신들만의 고유한 호흡법으로 그 속을 유영한다. 모든 것이 정지되어 있는 듯한 심해의 암흑 속에서 낯선 감각을 동원하여 생명의 원시적 형태를 더듬어보고, 물의 근본적 물성을 찾아가고, 물과 관련된 기억의 단편들을 건져올린다. 세 작가의 여정은 각기 다르지만, 다다르게 되는 지점은 순환하는 전체성으로서의 물의 존재이다.</p>
+
+            <p>작가들은 물의 유동성과 가변성을 먼저 들여다본다. 동시에 각각의 다른 시선을 하나로 묶어낼 수 있는 것이 무엇일까에 대한 사유로 확장시켜간다. 그들은 '관찰자이자 채집자(김의선)', '근원에 대한 연구자(손희민)', '물리적 제약을 극복하는 실험가(허연화)'의 태도로 물의 본질을 탐구하는 단계를 거쳐 매개적 속성에 가닿는 과정을 보여준다.</p>
+
+            <p>김의선 작가는 스며드는 물의 성질에 의한 이질적인 것들과의 관계 맺기를 시간성의 개념으로 보여준다. 천천히 대상의 내부로 침투해 가는 물의 호흡을 지켜보다 보면 어느새 대상과의 경계가 무력해지는 순간을 마주하게 된다. 수직적이고 단단한 석고 덩어리가 물에 잠식당해가는 과정은 전시기간 동안 작품의 핵심으로 제시된다. 전시 초반 극히 미미하게만 보이는 물의 개입은 시간의 흐름에 따라 석고의 질감과 색깔의 변화 등 뚜렷한 침투의 흔적을 드러내며 범위를 확장해 간다. 작가가 직접 채집하여 이식한 식물 또한 전시장이라는 불안정한 환경에서도 성장을 이어가며 공간 속에 미세한 변화를 부여한다. 고요하고 은밀하게 스며드는 물의 물성은 견고한 타자를 전복시키는 힘이 되기도 하고, 동시에 작고 연약한 식물의 생장을 가능하게 하는 생명의 힘이 되기도 한다.</p>
+
+            <p>인류의 근원적 모습을 찾아가는 손희민 작가에게 미술 바깥의 다른 학문 영역과의 교류는 중요한 작업과정이다. 그가 구현해내는 태초의 생명체 형상은 판타지적 상상력에 의존하여 만들어진 그 어떤 것의 재현이 아니라, 생명과학자들과의 교류와 고증 단계를 거쳐 나온 결과물이다. 조각이라는 예술 장르를 과학적 검증의 장으로 연결시킨 탈경계의 급진적 실험에 비해 작품 제작 방식이 전통적이라는 점은 오히려 예상을 벗어나는 흥미로운 지점이기도 하다. 작가는 모든 생물의 공통 조상으로 여겨지는 해양 생물 '에디아카라 생물군'에 대한 정보를 토대로 생물학자의 드로잉을 관찰하며, 그로테스크하면서 몽환적 신비감이 뒤섞인 고생물을 제작하여 선보인다. 태고의 생명체 모습을 찾아가며 작가가 품었을 '생명이란 무엇인가?'라는 물음은, 지금 당장 우리 인류에겐 기후변화 등 생태계 위기와 관련된 더없이 무거운 질문이 되기도 한다.</p>
+
+            <p>허연화 작가는 '흐르는' 물질을 표현하기 위해 회화, 조각, 설치 장르의 요소들을 자유롭게 조합하여 구성한다. 작가가 경험한 다양한 층위의 시공간의 기억을 압축하여 펼쳐낸 흘러가는 풍경은 전시장이라는 공간의 제약을 벗어나 다른 차원의 감각을 향해 열리는 새로운 지각을 경험하게 한다. 작품에 의해 불러 일으켜진 물에 대한 기억들이 관객의 의식의 흐름으로 연결되면서 확장된 공간감의 상상을 가능하게 하기 때문이다. 평면의 회화와 3차원의 조각이 하나로 이어지고 작품의 내부와 외부가 뒤섞이고 교차하며 드러나는 물의 파편화된 이미지들은, 관객으로 하여금 파도가 몸에 부딪힐때 그 파동이 신체의 감각으로 연결되는 것과 같은 일련의 기억들을 일깨워준다. 관객의 지각이 물에 대한 일상적 기억을 매개로 공감각의 영역으로 노출되도록 이끌어지는 것이다.</p>
+
+            <p>매개는 관계 사이에서 기능한다. 따로이 존재할 수 없고 타자와의 관계 맺기 속에서 가능한 개념이다. 물을 주요 소재로 작품 세계를 구축해오고 있는 젊은 여성 조각가 3인이 이번 전시에서 들려주는 것은 그래서 관계에 관한 이야기이기도 하다. 무언가를 향해 다가가는 속도를 관찰하고, 신체와 물질의 관계를 탐색하고, 낯선 학문 영역의 문을 용기내어 두드리는 흥미롭고 기발한 실험들이 더욱 심화되고 확장되어가기를 바란다.</p>
+
+            <div class="credit">
+                <span>글. 어유진</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <span>2026 Eugene Eo. All rights reserved.</span>
+        <a href="https://instagram.com/00_815" target="_blank">Instagram</a>
+    </footer>
+
+</body>
+</html>
