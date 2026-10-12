@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eugene Eo - Independent Curator</title>
+    <meta name="description" content="Eugene Eo (어유진), independent curator based in Seoul.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&family=Noto+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="bg-word" aria-hidden="true">Eugene</div>
+
+    <div class="page">
+        <header class="top">
+            <a href="index.html" class="mark" aria-label="Home">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.6 6.6 5.4 11.4 12 12-6.6.6-11.4 5.4-12 12-.6-6.6-5.4-11.4-12-12C6.6 11.4 11.4 6.6 12 0z"/></svg>
+            </a>
+            <div class="top-nav">
+                <a href="index.html" class="is-current">Eugene Eo</a>
+                <a href="about.html">About</a>
+                <div class="lang">
+                    <button type="button" data-l="en">ENG</button>
+                    <button type="button" data-l="ko">KOR</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Curating -->
+            <section class="group">
+                <h2 class="group-title"><span class="ko">기획</span><span class="en">Curating</span></h2>
+                <ul class="list">
+                    <li class="fade">
+                        <span class="t">
+                            <span class="ko">염원: 도래하지 않은</span><span class="en">Longing: The Unarrived</span>
+                            <span class="sub"><span class="ko">신한갤러리 역삼, 서울</span><span class="en">Shinhan Gallery Yeoksam, Seoul</span></span>
+                        </span>
+                        <span class="y">2026</span>
+                    </li>
+                    <li class="fade">
+                        <a class="t" href="work-beneath-upon-beyond.html" data-peek="images/beneath-poster.jpg">
+                            Beneath, Upon, Beyond
+                            <span class="sub"><span class="ko">오온, 서울</span><span class="en">ooooon, Seoul</span></span>
+                        </a>
+                        <span class="y">2025</span>
+                    </li>
+                    <li class="fade">
+                        <a class="t" href="work-dispatchers.html" data-peek="images/dispatchers-2.jpg">
+                            <span class="ko">파견체들</span><span class="en">The Dispatchers</span>
+                            <span class="sub"><span class="ko">다이브서울, 서울</span><span class="en">Dive Seoul, Seoul</span></span>
+                        </a>
+                        <span class="y">2024</span>
+                    </li>
+                    <li class="fade">
+                        <a class="t" href="work-water-mediates.html">
+                            <span class="ko">물은 모든 것을 매개한다</span><span class="en">Water Mediates Everything</span>
+                            <span class="sub"><span class="ko">서울</span><span class="en">Seoul</span></span>
+                        </a>
+                        <span class="y">2023</span>
+                    </li>
+                    <li class="fade">
+                        <span class="t">
+                            Tim Bengel Solo Show
+                            <span class="sub"><span class="ko">Gallery Rother (독일)</span><span class="en">Gallery Rother (Germany)</span></span>
+                        </span>
+                        <span class="y">2022</span>
+                    </li>
+                    <li class="fade">
+                        <span class="t">
+                            Into the Light
+                            <span class="sub"><span class="ko">그랜드 하얏트 파르나스, 제주</span><span class="en">Grand Hyatt Parnas Jeju</span></span>
+                        </span>
+                        <span class="y">2022</span>
+                    </li>
+                    <li class="fade">
+                        <span class="t">
+                            The Brand New Moment
+                            <span class="sub"><span class="ko">신세계면세점 본점 외 다수</span><span class="en">Shinsegae Duty Free + Others</span></span>
+                        </span>
+                        <span class="y">2022</span>
+                    </li>
+                    <li class="fade">
+                        <span class="t" data-peek="images/samoha-poster.jpg">
+                            <span class="ko">내가 사모하는 것에 무슨 쓸모가 있나요</span><span class="en">What Use Is What I Love</span>
+                            <span class="sub"><span class="ko">행화탕, 서울</span><span class="en">Haenghwatang, Seoul</span></span>
+                        </span>
+                        <span class="y">2018</span>
+                    </li>
+                </ul>
+            </section>
+
+            <div class="spark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6.6 5.4 11.4 12 12-6.6.6-11.4 5.4-12 12-.6-6.6-5.4-11.4-12-12C6.6 11.4 11.4 6.6 12 0z"/></svg></div>
+
+            <!-- Institutional -->
+            <section class="group">
+                <h2 class="group-title"><span class="ko">기관 소속 전시</span><span class="en">Institutional</span></h2>
+                <ul class="list">
+                    <li class="fade"><span class="t">Unfold X<span class="sub"><span class="ko">문화역284</span><span class="en">Culture Station 284</span></span></span><span class="y">2024</span></li>
+                    <li class="fade"><span class="t"><span class="ko">모욕을 당한 자이며 위대한</span><span class="en">Insulted and Great</span><span class="sub"><span class="ko">정정엽 개인전</span><span class="en">Jung Jung-yeop Solo</span></span></span><span class="y">2023</span></li>
+                    <li class="fade"><span class="t">Patagium<span class="sub"><span class="ko">정수정, 이재석 2인전</span><span class="en">Jung Su-jung, Lee Jae-seok</span></span></span><span class="y">2023</span></li>
+                    <li class="fade"><span class="t">Re:site_ceramics<span class="sub"><span class="ko">김준명, 유의정, 주세균 3인전</span><span class="en">Kim Jun-myung, Yoo Ui-jung, Joo Se-gyun</span></span></span><span class="y">2023</span></li>
+                    <li class="fade"><span class="t"><span class="ko">숲의 계절</span><span class="en">Forest Seasons</span><span class="sub"><span class="ko">노경희 개인전</span><span class="en">Noh Kyung-hee Solo</span></span></span><span class="y">2023</span></li>
+                    <li class="fade"><span class="t"><span class="ko">쉬고 있는 여자들</span><span class="en">Resting Women</span><span class="sub"><span class="ko">배미정 개인전</span><span class="en">Bae Mi-jung Solo</span></span></span><span class="y">2023</span></li>
+                    <li class="fade"><span class="t">Precarious Geographies<span class="sub"><span class="ko">박준형, 최은정 2인전</span><span class="en">Park Jun-hyung, Choi Eun-jung</span></span></span><span class="y">2023</span></li>
+                    <li class="fade"><span class="t"><span class="ko">잃어버린 숲</span><span class="en">Lost Forest</span><span class="sub"><span class="ko">허윤희 개인전</span><span class="en">Heo Yun-hee Solo</span></span></span><span class="y">2022</span></li>
+                    <li class="fade"><span class="t">The River and the Raft<span class="sub"><span class="ko">Liza Lou 개인전 / 리만머핀, 송원아트센터</span><span class="en">Liza Lou Solo / Lehmann Maupin, Songwon Art Center</span></span></span><span class="y">2020</span></li>
+                    <li class="fade"><span class="t">Glitch World<span class="sub"><span class="ko">송원아트센터</span><span class="en">Songwon Art Center</span></span></span><span class="y">2020</span></li>
+                    <li class="fade"><span class="t"><span class="ko">Quantum Leap: 비약적 도약</span><span class="en">Quantum Leap</span><span class="sub"><span class="ko">신당창작아케이드, 송원아트센터 외 다수</span><span class="en">Sindang Creative Arcade, Songwon Art Center + Others</span></span></span><span class="y">2019</span></li>
+                </ul>
+            </section>
+
+            <div class="spark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c.6 6.6 5.4 11.4 12 12-6.6.6-11.4 5.4-12 12-.6-6.6-5.4-11.4-12-12C6.6 11.4 11.4 6.6 12 0z"/></svg></div>
+
+            <!-- Writings -->
+            <section class="group">
+                <h2 class="group-title"><span class="ko">글</span><span class="en">Writings</span></h2>
+                <ul class="list">
+                    <li class="fade"><span class="t"><span class="ko">아기 곁을 지키는 고양이: 돌봄의 규범, 알로패런팅, 반려종, 그리고 함께-되기</span><span class="en">Care, Alloparenting, Companion Species, and Becoming-with</span></span></li>
+                    <li class="fade"><span class="t"><span class="ko">공존. 낭만적 단어가 아닌, 트러블 안에서 살아남기.</span><span class="en">Coexistence: not a romantic notion, but a practice of staying with the trouble</span></span></li>
+                    <li class="fade"><span class="t"><span class="ko">Twinkling: 연결망처럼 분포된 별들, 우주</span><span class="en">Twinkling: A Universe of Stars Distributed Like a Network</span></span></li>
+                    <li class="fade"><span class="t"><span class="ko">조개 껍데기: 주의 기울임, 알아차림, 어우러져 살아감에 관하여</span><span class="en">Seashell: On Attentiveness, Awareness, and Living Together in Harmony</span></span></li>
+                    <li class="fade"><span class="t"><span class="ko">융화(accord &amp; sympathy)된 실뭉치들</span><span class="en">Skeins of Thread in Accord &amp; Sympathy</span></span></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="foot">
+            <a href="https://instagram.com/00_815" target="_blank" rel="noopener">Instagram</a>
+            <span>&copy; 2026. Eugene Eo</span>
+        </footer>
+    </div>
+
+    <div class="peek" aria-hidden="true"><img alt=""></div>
+
+    <script src="assets/site.js"></script>
+</body>
+</html>
